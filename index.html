@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)file:///Users/zekemez/Downloads/index_home_fixed_faq_bottom_clean%20(7).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitEdge AI | Get Recruited with AI</title>
+    <link href="./index_files/css2" rel="stylesheet">
+    <script src="./index_files/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0066FF;
+            --secondary: #00D9FF;
+            --dark: #0A0E27;
+            --gradient: linear-gradient(135deg, #0066FF 0%, #00D9FF 100%);
+        }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+            color: #e5e7eb;
+            background: #0A0E27;
+        }
+        
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: rgba(10, 14, 39, 0.8); 
+            backdrop-filter: blur(20px); 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 1.25rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            background: var(--gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+            gap: 0.15rem;
+            list-style: none;
+            align-items: center;
+            padding: 0.35rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(16px);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+}
+        .nav-links::-webkit-scrollbar {
+            display: none;
+}
+        .nav-links a {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 0.95rem;
+            border-radius: 999px;
+            color: rgba(229, 231, 235, 0.92);
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+            user-select: none;
+            white-space: nowrap;
+}
+        .nav-links a.active-link {
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+        }
+        .nav-links a.myplayer-link {
+            background: rgba(0, 102, 255, 0.16);
+            border: 1px solid rgba(0, 217, 255, 0.22);
+            color: white;
+}
+        .nav-links a.myplayer-link:hover {
+            background: rgba(0, 102, 255, 0.22);
+}
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.95);
+            transform: translateY(-1px);
+}
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+}
+        
+        /* Notification Bell */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .notification-bell:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .bell-icon {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 2rem;
+            width: 380px;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 1001;
+        }
+        .notification-dropdown.active {
+            display: block;
+        }
+        .notification-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-header h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .mark-read {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .mark-read:hover {
+            text-decoration: underline;
+        }
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .notification-item {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .notification-item.unread {
+            background: rgba(0, 217, 255, 0.05);
+        }
+        .notification-item.unread::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.75rem;
+        }
+        .notification-title {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .notification-message {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .notification-time {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .notification-empty {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .login-btn { 
+            color: rgba(255, 255, 255, 0.9); 
+            font-weight: 600; 
+            cursor: pointer;
+            font-size: 0.95rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+        }
+        .login-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .signup-btn {
+            padding: 0.75rem 1.05rem;
+            border: 0;
+            border-radius: 999px;
+            font-weight: 800;
+            color: #0A0E27;
+            background: var(--gradient);
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            white-space: nowrap;
+}
+        
+        .page { display: none; min-height: 100vh; }
+        .page.active { display: block; }
+        
+        .hero { 
+            padding: 180px 2rem 120px; 
+            background: linear-gradient(180deg, #0A0E27 0%, #1a1f3a 100%);
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        .hero h1 { 
+            font-size: 4.5rem; 
+            font-weight: 800; 
+            color: white;
+            line-height: 1.1; 
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .gradient-text { 
+            background: var(--gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .hero p { 
+            font-size: 1.25rem; 
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 650px; 
+            margin: 0 auto 3rem;
+        }
+        
+        .primary-button { 
+            padding: 1rem 2rem; 
+            background: var(--gradient);
+            color: white; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            font-size: 1.05rem;
+            cursor: pointer; 
+            border: none;
+            transition: all 0.3s;
+        }
+        .primary-button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.4);
+        }
+        
+        .secondary-button {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+        }
+        
+        .section { padding: 7rem 2rem; background: #0A0E27; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-title { 
+            font-size: 3rem; 
+            font-weight: 800; 
+            color: white;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+        
+        .features-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature-card { 
+            padding: 2.5rem; 
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 { 
+            font-size: 1.25rem; 
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        .feature-card p { 
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .step-card {
+            text-align: center;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+        .step-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        .step-card p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+        }
+        
+        /* Progress Dashboard */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        .activity-list {
+            margin-top: 2rem;
+        }
+        .activity-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .activity-status {
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #6ee7b7;
+        }
+        .status-pending {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fcd34d;
+        }
+        
+        /* Calculator */
+        .calculator-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .slider-group { margin-bottom: 3rem; }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+        .slider-value {
+            color: var(--secondary);
+            font-weight: 800;
+        }
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .tab-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-button:hover {
+            color: white;
+        }
+        .tab-button.active {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .form-section h4 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .result-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .result-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+        }
+        .result-value.highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Forms */
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { 
+            display: block;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+        .form-input, .form-select, .form-textarea { 
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { 
+            outline: none;
+            border-color: var(--secondary);
+        }
+        .form-textarea { resize: vertical; min-height: 120px; }
+        .checkbox-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .checkbox-item { display: flex; align-items: center; gap: 0.5rem; color: white; }
+        .submit-button { 
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        
+        /* Upload */
+        .upload-zone { 
+            background: rgba(255, 255, 255, 0.03);
+            border: 3px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+        .upload-zone:hover { border-color: var(--secondary); }
+        
+        /* Calendar Container */
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(0, 102, 255, 0.25);
+
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: -6px;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--gradient);
+            opacity: 0.9;
+            transition: left 0.25s ease, width 0.25s ease;
+        }
+        .nav-links-wrap {
+            position: relative;
+        }
+
+
+        /* Progress stats grid: 4 cards on one row for large screens */
+        .progress-stats-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        @media (min-width: 1280px){
+            .progress-stats-grid{
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+    
+
+        /* Home FAQ container */
+        .faq-container { 
+            max-width: 900px; 
+            margin: 2rem auto 0; 
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+</style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="showPage(&#39;home&#39;)">RecruitEdge</div>
+            <div class="nav-links-wrap">
+            <ul class="nav-links">
+                <li><a data-page="home" onclick="showPage(&#39;home&#39;)" class="">Home</a></li>
+                <li><a data-page="myplayer" class="myplayer-link" onclick="showPage(&#39;myplayer&#39;)">My Player</a></li>
+                <li><a data-page="matches" onclick="showPage(&#39;matches&#39;)" class="">College Matches</a></li>
+                <li><a data-page="progress" onclick="showPage(&#39;progress&#39;)" class="active">Progress</a></li>
+                <li><a data-page="profile" onclick="showPage(&#39;profile&#39;)" class="">Build Profile</a></li>
+                <li><a data-page="highlights" onclick="showPage(&#39;highlights&#39;)" class="">Highlights</a></li>
+                <li><a data-page="commit" onclick="showPage(&#39;commit&#39;)" class="">Commit Edit</a></li>
+                <li><a data-page="pricing" onclick="showPage(&#39;pricing&#39;)" class="">Pricing</a></li>
+            </ul>
+            <div class="nav-indicator" id="navIndicator" style="width: 93.9844px; left: 338.727px;"></div>
+            </div>
+            <div class="nav-right">
+                <div class="notification-bell" onclick="toggleNotifications()">
+                    <div class="bell-icon">🔔</div>
+                    <div class="notification-badge" id="notificationBadge">3</div>
+                </div>
+                <button class="signup-btn" onclick="showPage(&#39;signup&#39;)">Login / Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown" style="display: none;">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <span class="mark-read" onclick="markAllRead()">Mark all read</span>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <div class="notification-item unread" onclick="markAsRead(this)">
+                <div class="notification-title">🎉 Coach Responded!</div>
+                <div class="notification-message">Duke University coach viewed your highlight and sent a message</div>
+                <div class="notification-time">2 minutes ago</div>
+            </div>
+            <div class="notification-item unread" onclick="markAsRead(this)">
+                <div class="notification-title">📧 Email Campaign Sent</div>
+                <div class="notification-message">25 new coaches contacted today across D1 and D2 programs</div>
+                <div class="notification-time">1 hour ago</div>
+            </div>
+            <div class="notification-item unread" onclick="markAsRead(this)">
+                <div class="notification-title">📹 Highlight Tape Ready</div>
+                <div class="notification-message">Your professional highlight tape has been edited and is ready to share</div>
+                <div class="notification-time">3 hours ago</div>
+            </div>
+            <div class="notification-item" onclick="markAsRead(this)">
+                <div class="notification-title">✅ Profile Updated</div>
+                <div class="notification-message">Your athlete profile has been successfully updated with new stats</div>
+                <div class="notification-time">Yesterday</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME PAGE -->
+    
+<div id="home" class="page">
+    <section class="hero">
+        <div class="hero-badge">✨ AI‑Powered Recruiting Platform</div>
+        <h1>Your Athlete’s Personal <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI Recruiting Coordinator</span></h1>
+        <p>Automated outreach to college coaches, persistent follow‑ups, and a clean dashboard so families stay organized and athletes get seen.</p>
+        <div style="display:flex; gap: 1rem; justify-content:center; flex-wrap:wrap;">
+            <button class="primary-button" onclick="bookStrategyCall()">Book Free Strategy Call</button>
+            <button class="secondary-button" onclick="showPage(&#39;matches&#39;)">See College Matches</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-container">
+            <h2 class="section-title">Why RecruitEdge Works</h2>
+            <p class="section-subtitle">Coaches have crowded inboxes. RecruitEdge keeps your athlete consistently in front of the right programs—with clean info and smart follow‑ups.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Automated Outreach</h3>
+                    <p>Send personalized emails at scale so your athlete stays on coaches’ radar—without spending hours every week.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Follow‑Ups That Don’t Quit</h3>
+                    <p>Recruiting is about persistence. RecruitEdge follows up on schedule so your messages don’t get buried.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smarter Targeting</h3>
+                    <p>Match athletes to realistic levels and programs based on what matters: position, academics, region, and goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Dashboard</h3>
+                    <p>Track emails sent, responses, calls booked, and offers—so you know what’s working and where to adjust.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI College Matches</h3>
+                    <p>Enter height/weight/grad year/stats/tape and get suggested college levels and program types to start with.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Simple &amp; NCAA‑Appropriate</h3>
+                    <p>We help organize outreach and information. You stay in control of communication and next steps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,255,255,0.03);">
+        <div class="section-container">
+            <h2 class="section-title">How RecruitEdge Works</h2>
+            <p class="section-subtitle">Get started in minutes. Our AI takes care of the rest.</p>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Tell us about your stats, academics, and school preferences. Takes 10 minutes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Upload Highlights</h3>
+                    <p>Send us your raw game footage. We'll edit it into coach ready highlight tapes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>AI Finds Matches</h3>
+                    <p>We identify 100+ programs that fit your skill level, academics, and preferences.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Automated Outreach</h3>
+                    <p>AI sends personalized emails to coaches and follows up every 5 to 7 days automatically.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3>Track Responses</h3>
+                    <p>Monitor which coaches opened emails, viewed highlights, and responded in real time.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <h3>Get Recruited</h3>
+                    <p>Receive offers and choose the best school for your future. We help coordinate visits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="home-faq">
+        <div class="section-container" style="max-width: 900px;">
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-subtitle">Quick answers to the most common questions.</p>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">How does RecruitEdge help me get recruited?</div>
+                    <div class="faq-answer">RecruitEdge organizes your athlete's profile and helps automate consistent outreach and follow‑ups, while providing AI‑based match guidance so you start with the right level and program types.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">When should athletes start?</div>
+                    <div class="faq-answer">Most families begin seriously in junior year, but starting earlier can help build relationships—especially in faster recruiting sports.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is this NCAA compliant?</div>
+                    <div class="faq-answer">RecruitEdge helps you present information and stay organized. You control what gets sent, and we recommend keeping messages factual and respectful—just like manual outreach.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I cancel anytime?</div>
+                    <div class="faq-answer">Yes. Plans are monthly and you can cancel whenever you want.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What do I need to provide?</div>
+                    <div class="faq-answer">Basics (name, grad year, position), key stats, academics (optional), and a tape link. The cleaner the tape and the clearer the profile, the better.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="profile" class="page">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container" style="max-width: 1000px;">
+                <h2 class="section-title">Build Your Recruiting Profile</h2>
+                <p class="section-subtitle">Complete your profile step by step</p>
+                
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <button onclick="loadDemoData()" style="background: rgba(251, 191, 36, 0.2); border: 2px solid #FBBF24; color: #FBBF24; padding: 0.875rem 2rem; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                        👀 View Example Profile
+                    </button>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav">
+                        <button class="tab-button active" onclick="showTab(&#39;basic&#39;)">1. Basic Info</button>
+                        <button class="tab-button" onclick="showTab(&#39;athletic&#39;)">2. Athletic Info</button>
+                        <button class="tab-button" onclick="showTab(&#39;teams&#39;)">3. Teams</button>
+                        <button class="tab-button" onclick="showTab(&#39;preferences&#39;)">4. Preferences</button>
+                    </div>
+
+                    <form id="profileForm">
+                        <!-- TAB 1: BASIC INFO -->
+                        <div id="basic" class="tab-content active">
+                            <div class="form-section">
+                                <h4>Personal Information</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-input" id="fullName" placeholder="First and Last Name" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-input" id="email" placeholder="your@email.com" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-input" id="phone" placeholder="(555) 123-4567">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Graduation Year</label>
+                                        <select class="form-select" id="gradYear" required="">
+                                            <option value="">Select year</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                            <option>2028</option>
+                                            <option>2029</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Location</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">High School Name</label>
+                                        <input type="text" class="form-input" id="schoolName" placeholder="Your High School" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-input" id="city" placeholder="City" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">State/Province</label>
+                                        <input type="text" class="form-input" id="state" placeholder="State" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-select" id="country" required="">
+                                            <option value="">Select country</option>
+                                            <option selected="">United States</option>
+                                            <option>Canada</option>
+                                            <option>United Kingdom</option>
+                                            <option>Australia</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Academics</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">GPA</label>
+                                        <input type="number" step="0.01" min="0" max="4.0" class="form-input" id="gpa" placeholder="3.5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">SAT/ACT Score (Optional)</label>
+                                        <input type="text" class="form-input" id="testScore" placeholder="1200 SAT or 26 ACT">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="showTab(&#39;athletic&#39;)" style="width: 100%; padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 2rem;">
+                                Next: Athletic Information →
+                            </button>
+                        </div>
+
+                        <!-- TAB 2: ATHLETIC INFO -->
+                        <div id="athletic" class="tab-content">
+                            <div class="form-section">
+                                <h4>Sport &amp; Position</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Sport</label>
+                                        <select class="form-select" id="sport" required="">
+                                            <option value="">Select sport</option>
+                                            <option>Lacrosse</option>
+                                            <option>Soccer</option>
+                                            <option>Baseball</option>
+                                            <option>Basketball</option>
+                                            <option>Football</option>
+                                            <option>Volleyball</option>
+                                            <option>Field Hockey</option>
+                                            <option>Ice Hockey</option>
+                                            <option>Swimming</option>
+                                            <option>Track &amp; Field</option>
+                                            <option>Tennis</option>
+                                            <option>Golf</option>
+                                            <option>Wrestling</option>
+                                            <option>Softball</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Primary Position</label>
+                                        <input type="text" class="form-input" id="position" placeholder="e.g., Attack, Midfielder, Forward">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Physical Attributes</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Height</label>
+                                        <input type="text" class="form-input" id="height" placeholder="5&#39;10&quot;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Weight</label>
+                                        <input type="text" class="form-input" id="weight" placeholder="165 lbs">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem;">
+                                <button type="button" onclick="showTab(&#39;basic&#39;)" style="padding: 1rem; background: rgba(255, 255, 255, 0.1); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">
+                                    ← Back
+                                </button>
+                                <button type="button" onclick="showTab(&#39;teams&#39;)" style="padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">
+                                    Next: Teams →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3: TEAMS -->
+                        <div id="teams" class="tab-content">
+                            <!-- High School Teams -->
+                            <div class="form-section">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                                    <h4 style="margin: 0;">High School Team(s)</h4>
+                                    <button type="button" onclick="addSchoolTeam()" style="background: var(--gradient); color: white; border: none; padding: 0.625rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                        <span style="font-size: 1.1rem;">+</span> Add Team
+                                    </button>
+                                </div>
+                                <div id="schoolTeamsContainer">
+                                    <div class="team-section" style="background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                            <div class="form-group">
+                                                <label class="form-label">School Name</label>
+                                                <input type="text" class="form-input" placeholder="Your High School">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Location</label>
+                                                <input type="text" class="form-input" placeholder="City, State">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Coach Name</label>
+                                                <input type="text" class="form-input" placeholder="Coach Smith">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Coach Email</label>
+                                                <input type="email" class="form-input" placeholder="coach@school.edu">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Varsity Years</label>
+                                            <div class="checkbox-group">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="fr1">
+                                                    <label for="fr1">Freshman</label>
+                                                </div>
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="so1">
+                                                    <label for="so1">Sophomore</label>
+                                                </div>
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="jr1">
+                                                    <label for="jr1">Junior</label>
+                                                </div>
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="sr1">
+                                                    <label for="sr1">Senior</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Stats &amp; Achievements</label>
+                                            <textarea class="form-textarea" placeholder="Career stats, team achievements, individual awards..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Club Teams -->
+                            <div class="form-section">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                                    <h4 style="margin: 0;">Club Team(s) - Optional</h4>
+                                    <button type="button" onclick="addClubTeam()" style="background: var(--gradient); color: white; border: none; padding: 0.625rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                        <span style="font-size: 1.1rem;">+</span> Add Team
+                                    </button>
+                                </div>
+                                <div id="clubTeamsContainer">
+                                    <div class="team-section" style="background: rgba(0, 102, 255, 0.05); border: 1px solid rgba(0, 102, 255, 0.2); border-radius: 12px; padding: 1.5rem;">
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                            <div class="form-group">
+                                                <label class="form-label">Club Name</label>
+                                                <input type="text" class="form-input" placeholder="e.g., FCA Lacrosse">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Location</label>
+                                                <input type="text" class="form-input" placeholder="City, State">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Coach Name</label>
+                                                <input type="text" class="form-input" placeholder="Coach Johnson">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Years Active</label>
+                                                <input type="text" class="form-input" placeholder="2022 - Present">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Stats &amp; Achievements</label>
+                                            <textarea class="form-textarea" placeholder="Tournament wins, stats, national rankings..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem;">
+                                <button type="button" onclick="showTab(&#39;athletic&#39;)" style="padding: 1rem; background: rgba(255, 255, 255, 0.1); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">
+                                    ← Back
+                                </button>
+                                <button type="button" onclick="showTab(&#39;preferences&#39;)" style="padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">
+                                    Next: Preferences →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TAB 4: PREFERENCES -->
+                        <div id="preferences" class="tab-content">
+                            <div class="form-section">
+                                <h4>Division Level</h4>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="d1">
+                                        <label for="d1">Division 1</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="d2">
+                                        <label for="d2">Division 2</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="d3">
+                                        <label for="d3">Division 3</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="naia">
+                                        <label for="naia">NAIA</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Location Preferences</h4>
+                                <div style="margin-bottom: 1.5rem;">
+                                    <div class="checkbox-item" style="padding: 1rem; background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 8px;">
+                                        <input type="checkbox" id="all-locations" onclick="toggleAllLocations(this)">
+                                        <label for="all-locations" style="font-weight: 600;">Open to All Locations - I'll play anywhere</label>
+                                    </div>
+                                </div>
+                                <div id="stateSelection">
+                                    <div class="form-group">
+                                        <label class="form-label">Or select specific states you'd consider:</label>
+                                        <select multiple="" class="form-select" style="height: 200px;" id="stateSelect">
+                                            <optgroup label="Northeast">
+                                                <option>Connecticut</option>
+                                                <option>Maine</option>
+                                                <option>Massachusetts</option>
+                                                <option>New Hampshire</option>
+                                                <option>New Jersey</option>
+                                                <option>New York</option>
+                                                <option>Pennsylvania</option>
+                                                <option>Rhode Island</option>
+                                                <option>Vermont</option>
+                                            </optgroup>
+                                            <optgroup label="Southeast">
+                                                <option>Alabama</option>
+                                                <option>Florida</option>
+                                                <option>Georgia</option>
+                                                <option>Kentucky</option>
+                                                <option>Maryland</option>
+                                                <option>North Carolina</option>
+                                                <option>South Carolina</option>
+                                                <option>Tennessee</option>
+                                                <option>Virginia</option>
+                                                <option>West Virginia</option>
+                                            </optgroup>
+                                            <optgroup label="Midwest">
+                                                <option>Illinois</option>
+                                                <option>Indiana</option>
+                                                <option>Iowa</option>
+                                                <option>Kansas</option>
+                                                <option>Michigan</option>
+                                                <option>Minnesota</option>
+                                                <option>Missouri</option>
+                                                <option>Nebraska</option>
+                                                <option>North Dakota</option>
+                                                <option>Ohio</option>
+                                                <option>South Dakota</option>
+                                                <option>Wisconsin</option>
+                                            </optgroup>
+                                            <optgroup label="Southwest">
+                                                <option>Arizona</option>
+                                                <option>Arkansas</option>
+                                                <option>Louisiana</option>
+                                                <option>Mississippi</option>
+                                                <option>New Mexico</option>
+                                                <option>Oklahoma</option>
+                                                <option>Texas</option>
+                                            </optgroup>
+                                            <optgroup label="West">
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Colorado</option>
+                                                <option>Hawaii</option>
+                                                <option>Idaho</option>
+                                                <option>Montana</option>
+                                                <option>Nevada</option>
+                                                <option>Oregon</option>
+                                                <option>Utah</option>
+                                                <option>Washington</option>
+                                                <option>Wyoming</option>
+                                            </optgroup>
+                                        </select>
+                                        <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-top: 0.5rem;">Hold Ctrl (or Cmd on Mac) to select multiple states</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Academic &amp; Financial</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Intended Major</label>
+                                        <input type="text" class="form-input" placeholder="Business, Engineering, etc.">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Financial Aid Needs</label>
+                                        <select class="form-select">
+                                            <option value="">Select one</option>
+                                            <option>Need full scholarship</option>
+                                            <option>Need partial scholarship</option>
+                                            <option>Scholarship preferred</option>
+                                            <option>Can afford without aid</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem;">
+                                <button type="button" onclick="showTab(&#39;teams&#39;)" style="padding: 1rem; background: rgba(255, 255, 255, 0.1); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">
+                                    ← Back
+                                </button>
+                                <button type="submit" style="padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1.1rem;">
+                                    Submit Profile ✓
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+            <div id="myplayer" class="page">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container" style="max-width: 1400px;">
+                <h2 class="section-title">My Player Card</h2>
+                <p class="section-subtitle">Your complete recruiting profile at a glance</p>
+
+                <!-- Player Card - 2K Style -->
+                <div style="display: grid; grid-template-columns: 380px 1fr; gap: 2rem; margin-top: 3rem;">
+                    
+                    <!-- LEFT: Player Card -->
+                    <div style="background: linear-gradient(135deg, #1a1f3a 0%, #0A0E27 100%); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2);">
+                        <!-- Profile Image Placeholder -->
+                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(0, 217, 255, 0.2) 100%); border-radius: 16px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(0, 217, 255, 0.3);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 4rem; margin-bottom: 0.5rem;">👤</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Profile Photo</div>
+                            </div>
+                        </div>
+
+                        <!-- Player Name & Number -->
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <div style="font-size: 2rem; font-weight: 800; color: white; margin-bottom: 0.25rem;" id="playerName">JAKE MARTINEZ</div>
+                            <div style="font-size: 1.2rem; color: var(--secondary); font-weight: 600;" id="playerPosition">ATTACK</div>
+                            <div style="color: rgba(255, 255, 255, 0.6); margin-top: 0.5rem;" id="playerSchool">Mountain View HS</div>
+                        </div>
+
+                        <!-- Overall Rating (2K Style) -->
+                        <div style="background: rgba(0, 217, 255, 0.1); border: 2px solid var(--secondary); border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                            <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.5rem;">OVERALL RATING</div>
+                            <div style="font-size: 4rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;">92</div>
+                            <div style="color: var(--secondary); font-weight: 600; margin-top: 0.5rem;">ELITE PROSPECT</div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 1rem; text-align: center;">
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; margin-bottom: 0.25rem;">CLASS</div>
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;" id="playerClass">2027</div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 1rem; text-align: center;">
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; margin-bottom: 0.25rem;">GPA</div>
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;" id="playerGPA">3.7</div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 1rem; text-align: center;">
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; margin-bottom: 0.25rem;">HEIGHT</div>
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;" id="playerHeight">5'11"</div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 1rem; text-align: center;">
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; margin-bottom: 0.25rem;">WEIGHT</div>
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;" id="playerWeight">175</div>
+                            </div>
+                        </div>
+
+                        <!-- Badges (2K Style) -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="color: white; font-weight: 700; font-size: 0.875rem; margin-bottom: 1rem; text-transform: uppercase;">Badges</div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                <div style="background: rgba(251, 191, 36, 0.2); border: 1px solid #FBBF24; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #FBBF24;">🏆 All-Conference</div>
+                                <div style="background: rgba(139, 92, 246, 0.2); border: 1px solid #8B5CF6; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #8B5CF6;">👨‍✈️ Captain</div>
+                                <div style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #10B981;">⚡ Playmaker</div>
+                                <div style="background: rgba(239, 68, 68, 0.2); border: 1px solid #EF4444; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #EF4444;">🔥 Clutch</div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Button -->
+                        <button style="width: 100%; padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                            📧 Contact Coaches
+                        </button>
+                    </div>
+
+                    <!-- RIGHT: Detailed Stats & Info -->
+                    <div>
+                        <!-- Attribute Bars (2K Style) -->
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2rem; margin-bottom: 2rem;">
+                            <h3 style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Player Attributes</h3>
+                            <div style="display: grid; gap: 1.25rem;">
+                                <!-- Offense -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="color: white; font-weight: 600;">Offense</span>
+                                        <span style="color: var(--secondary); font-weight: 700;">95</span>
+                                    </div>
+                                    <div style="background: rgba(255, 255, 255, 0.1); height: 12px; border-radius: 6px; overflow: hidden;">
+                                        <div style="background: var(--gradient); height: 100%; width: 95%; border-radius: 6px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Defense -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="color: white; font-weight: 600;">Defense</span>
+                                        <span style="color: var(--secondary); font-weight: 700;">78</span>
+                                    </div>
+                                    <div style="background: rgba(255, 255, 255, 0.1); height: 12px; border-radius: 6px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #10B981 0%, #059669 100%); height: 100%; width: 78%; border-radius: 6px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Speed/Athleticism -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="color: white; font-weight: 600;">Speed &amp; Athleticism</span>
+                                        <span style="color: var(--secondary); font-weight: 700;">92</span>
+                                    </div>
+                                    <div style="background: rgba(255, 255, 255, 0.1); height: 12px; border-radius: 6px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #FBBF24 0%, #F59E0B 100%); height: 100%; width: 92%; border-radius: 6px;"></div>
+                                    </div>
+                                </div>
+                                <!-- IQ/Vision -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="color: white; font-weight: 600;">IQ &amp; Vision</span>
+                                        <span style="color: var(--secondary); font-weight: 700;">88</span>
+                                    </div>
+                                    <div style="background: rgba(255, 255, 255, 0.1); height: 12px; border-radius: 6px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%); height: 100%; width: 88%; border-radius: 6px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Leadership -->
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="color: white; font-weight: 600;">Leadership</span>
+                                        <span style="color: var(--secondary); font-weight: 700;">94</span>
+                                    </div>
+                                    <div style="background: rgba(255, 255, 255, 0.1); height: 12px; border-radius: 6px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #EF4444 0%, #DC2626 100%); height: 100%; width: 94%; border-radius: 6px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Career Stats -->
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem;">
+                                <h4 style="color: white; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.2rem;">High School Career</h4>
+                                <div style="display: grid; gap: 1rem;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: rgba(255, 255, 255, 0.7);">Goals</span>
+                                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">52</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: rgba(255, 255, 255, 0.7);">Assists</span>
+                                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">28</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: rgba(255, 255, 255, 0.7);">Total Points</span>
+                                        <span style="color: var(--secondary); font-weight: 700; font-size: 1.1rem;">80</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <span style="color: rgba(255, 255, 255, 0.7);">Record</span>
+                                        <span style="color: white; font-weight: 700;">15-3</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem;">
+                                <h4 style="color: white; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.2rem;">Achievements</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="font-size: 1.2rem;">🏆</span>
+                                        <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">All-Conference First Team</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="font-size: 1.2rem;">👨‍✈️</span>
+                                        <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">Team Captain (2024)</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="font-size: 1.2rem;">⭐</span>
+                                        <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">Offensive POY (2023)</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="font-size: 1.2rem;">🥈</span>
+                                        <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">State Semi-Finalist</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recruiting Status -->
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem;">
+                            <h4 style="color: white; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.2rem;">Recruiting Status</h4>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: 800; color: var(--secondary); margin-bottom: 0.25rem;">127</div>
+                                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Coaches Contacted</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: 800; color: #10B981; margin-bottom: 0.25rem;">43</div>
+                                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Responses</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: 800; color: #FBBF24; margin-bottom: 0.25rem;">8</div>
+                                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Calls Scheduled</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: 800; color: #8B5CF6; margin-bottom: 0.25rem;">3</div>
+                                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Offers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom: Target Schools -->
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Target Schools</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;">Syracuse</div>
+                                <div style="background: rgba(251, 191, 36, 0.2); color: #FBBF24; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; margin-left: auto;">High Interest</div>
+                            </div>
+                            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: 0.5rem;">Division 1 • New York</div>
+                            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">✅ Email sent • 📧 Response received • 📞 Call scheduled</div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;">Duke</div>
+                                <div style="background: rgba(139, 92, 246, 0.2); color: #8B5CF6; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600;">Dream School</div>
+                            </div>
+                            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: 0.5rem;">Division 1 • North Carolina</div>
+                            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">✅ Email sent • 👀 Highlight viewed</div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;">UNC</div>
+                                <div style="background: rgba(16, 185, 129, 0.2); color: #10B981; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600;">Active</div>
+                            </div>
+                            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: 0.5rem;">Division 1 • North Carolina</div>
+                            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">✅ Follow-up sent • ⏳ Awaiting response</div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="color: white; font-weight: 700; font-size: 1.1rem;">Virginia</div>
+                                <div style="background: rgba(59, 130, 246, 0.2); color: #60A5FA; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600;">Target</div>
+                            </div>
+                            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-bottom: 0.5rem;">Division 1 • Virginia</div>
+                            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">✅ Email sent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- HIGHLIGHTS PAGE -->
+    <div id="highlights" class="page">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container" style="max-width: 900px;">
+                <h2 class="section-title">Professional Highlight Tape Creator</h2>
+                <p class="section-subtitle">Upload your raw clips and we'll transform them into coach ready highlight tapes that get you noticed</p>
+                
+                <!-- What We Do Section -->
+                <div style="margin-bottom: 3rem;">
+                    <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">How We Make You Look Your Best</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎬</div>
+                            <h3>Optimal Clip Selection</h3>
+                            <p>We analyze all your footage and select only the plays that showcase your skills at the highest level. No filler, no wasted time. Just your best moments that demonstrate why coaches should recruit you.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⏱️</div>
+                            <h3>Perfect Length &amp; Pacing</h3>
+                            <p>Coaches want 2 to 3 minutes max. We trim clips to show the action immediately, cut out dead time, and pace the tape to maintain attention from start to finish. Every second counts.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Clean Graphics &amp; Stats</h3>
+                            <p>We add your name, position, grad year, and key stats in a clean professional format. Coaches see your information without distraction. No flashy effects, no music that drowns out game sound. Just what coaches want to see.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Position Specific Formatting</h3>
+                            <p>Attackman? We focus on goals, assists, and dodges. Defenseman? Groundballs, clears, and caused turnovers. Goalie? Saves organized by difficulty. We know what coaches look for in every position.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>HD Quality Enhancement</h3>
+                            <p>We optimize video quality, fix lighting issues, stabilize shaky footage, and ensure your tape looks crisp on any device. Your film looks professional even if it was shot on a phone.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✅</div>
+                            <h3>Coach Approved Format</h3>
+                            <p>We follow recruiting coordinator preferences from D1 to D3. Landscape orientation, game footage over practice, and organized by play type. We know exactly what coaches want because we've asked them.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Section -->
+                <div style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1.5rem;">Upload Your Game Footage</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">Send us your raw game clips and we'll turn them into a professional highlight tape in 3 to 5 business days</p>
+                    <div class="upload-zone" id="uploadZone">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">📁</div>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: white; margin-bottom: 0.5rem;">Drag and drop your video files here</div>
+                        <div style="color: rgba(255, 255, 255, 0.6);">or click to browse (MP4, MOV, AVI accepted)</div>
+                        <input type="file" id="fileInput" multiple="" accept="video/*" style="display: none;">
+                    </div>
+                    <div id="fileList"></div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: white; font-size: 1.1rem; margin-bottom: 1rem;">Editing Preferences</h4>
+                        <div class="form-group">
+                            <label class="form-label">Highlight Style</label>
+                            <select class="form-select">
+                                <option>Standard (Best plays, 2-3 min)</option>
+                                <option>Extended (More context, 4-5 min)</option>
+                                <option>Position Specific (Skills showcase, 3 min)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Special Requests (Optional)</label>
+                            <textarea class="form-textarea" placeholder="Any specific plays you want highlighted? Moments to include or exclude? Let us know..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button class="submit-button">Submit for Professional Editing</button>
+                    <p style="text-align: center; color: rgba(255, 255, 255, 0.6); margin-top: 1rem; font-size: 0.95rem;">Turnaround time: 3 to 5 business days • Unlimited revisions until you're satisfied</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+    <!-- COLLEGE MATCHES PAGE -->
+    <div id="matches" class="page">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container" style="max-width: 1400px;">
+                <h2 class="section-title">College Matches</h2>
+                <p class="section-subtitle">AI-powered recommendations based on your size, stats, academics, and tape.</p>
+
+                <!-- AI COLLEGE FIT FINDER -->
+                <div style="margin-top: 2.25rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 1rem; flex-wrap: wrap;">
+                        <div>
+                            <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; letter-spacing: 0.08em;">AI REVIEW</div>
+                            <h3 style="margin-top: 0.25rem; color: white; font-size: 1.8rem; font-weight: 900;">AI College Fit Finder</h3>
+                            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.7); max-width: 700px; line-height: 1.8;">Enter height, grade, weight, stats, and your highlight tape. RecruitEdge will generate suggested college levels + target program types based on your info. (Demo output for now — backend AI next.)</p>
+                        </div>
+                        <div style="min-width: 220px; text-align:right;">
+                            <button class="primary-button" onclick="runAIFitFinder()" style="margin-top: 0.25rem;">Get Suggestions →</button>
+                            <div style="margin-top: 0.6rem; color: rgba(255,255,255,0.55); font-size: 0.9rem;">+XP for AI usage</div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.25rem; margin-top: 1.75rem;">
+                        <div class="form-group">
+                            <label class="form-label">Sport</label>
+                            <select class="form-select" id="aiSport">
+                                <option value="">Select</option>
+                                <option>Lacrosse</option><option>Soccer</option><option>Baseball</option>
+                                <option>Softball</option><option>Basketball</option><option>Football</option>
+                                <option>Volleyball</option><option>Track</option><option>Swimming</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Position</label>
+                            <input class="form-input" id="aiPosition" placeholder="e.g., Midfield, Goalkeeper, QB">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Grade / Graduation Year</label>
+                            <input class="form-input" id="aiGradYear" placeholder="e.g., 10th / 2027">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Height</label>
+                            <input class="form-input" id="aiHeight" placeholder="e.g., 5&#39;10" "="">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Weight</label>
+                            <input class="form-input" id="aiWeight" placeholder="e.g., 165 lbs">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">GPA (optional)</label>
+                            <input class="form-input" id="aiGpa" placeholder="e.g., 3.7">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label class="form-label">Stats (paste your best numbers)</label>
+                        <textarea class="form-textarea" id="aiStats" placeholder="Examples:
+- 40-yard: 4.7
+- Goals: 32, Assists: 18
+- Varsity starter: 2 years
+- Awards, showcases, rankings"></textarea>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.25rem;">
+                        <div class="form-group">
+                            <label class="form-label">Highlight Tape Link (YouTube/Hudl)</label>
+                            <input class="form-input" id="aiTapeLink" placeholder="Paste URL">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Or Upload Tape (demo)</label>
+                            <input type="file" class="form-input" id="aiTapeUpload" accept="video/*">
+                        </div>
+                    </div>
+
+                    <div id="aiResults" style="display:none; margin-top: 1.5rem;"></div>
+                </div>
+
+
+                
+
+                <div style="margin-top: 2rem; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 2rem;">
+                    <h3 style="color: white; font-size: 1.35rem; font-weight: 800; margin-bottom: 0.5rem;">What this will do once backend is connected</h3>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                        We’ll score your fit across divisions (D1/D2/D3/NAIA/JUCO), generate a ranked school list, and explain <em>why</em> each program is a match.
+                        Then you can click “Start Outreach” to automatically contact coaches.
+                    </p>
+                    <div style="margin-top: 1.25rem; display:flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button class="primary-button" onclick="showPage(&#39;progress&#39;)">Go to Progress →</button>
+                        <button class="primary-button" style="background: rgba(255,255,255,0.12);" onclick="showPage(&#39;myplayer&#39;)">View My Player Card</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- COMMIT EDIT PAGE -->
+    <div id="commit" class="page">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container" style="max-width: 1400px;">
+                <h2 class="section-title">Commit Edit</h2>
+                <p class="section-subtitle">Create a clean Instagram-ready commitment graphic (image).</p>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items:start;">
+                    <!-- LEFT: Inputs -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;">
+                        <h3 style="color:white; font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem;">Inputs</h3>
+
+                        <div class="form-group">
+                            <label class="form-label">Athlete Name</label>
+                            <input class="form-input" id="commitAthlete" placeholder="e.g., Jordan Smith">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">School / Program</label>
+                            <input class="form-input" id="commitSchool" placeholder="e.g., University of Florida">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Grad Year</label>
+                            <input class="form-input" id="commitYear" placeholder="e.g., Class of 2027">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Sport + Position</label>
+                            <input class="form-input" id="commitSport" placeholder="e.g., Soccer • Midfield">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">School Logo (PNG/JPG)</label>
+                            <input class="form-input" id="commitLogo" type="file" accept="image/*">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Athlete Photo (optional)</label>
+                            <input class="form-input" id="commitPhoto" type="file" accept="image/*">
+                        </div>
+
+                        <div style="display:flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+                            <button class="primary-button" onclick="generateCommitPreview()">Generate Preview</button>
+                            </div>
+
+                        <div style="margin-top: 1rem; color: rgba(255,255,255,0.6); line-height: 1.7; font-size: 0.95rem;"><strong style="color:white;">Tip:</strong> Use a high‑resolution logo (PNG) for the cleanest look. We can add a one‑click image download button next.</div>
+</div>
+
+                    <!-- RIGHT: Preview -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;">
+                        <h3 style="color:white; font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem;">Preview</h3>
+
+                        <div id="commitPreview" style="
+                            position: relative;
+                            aspect-ratio: 1 / 1;
+                            width: 100%;
+                            border-radius: 18px;
+                            overflow: hidden;
+                            background: radial-gradient(circle at 20% 20%, rgba(0,102,255,0.25) 0%, transparent 40%),
+                                        radial-gradient(circle at 80% 80%, rgba(0,217,255,0.25) 0%, transparent 45%),
+                                        linear-gradient(135deg, #0A0E27 0%, #1a1f3a 100%);
+                            border: 1px solid rgba(255,255,255,0.12);
+                        ">
+                            <div id="commitBgVideoWrap" style="position:absolute; inset:0; opacity:0.35; display:none;">
+                                <video id="commitBgVideo" muted="" loop="" playsinline="" style="width:100%; height:100%; object-fit: cover;"></video>
+                            </div>
+
+                            <div style="position:absolute; inset:0; padding: 2rem; display:flex; flex-direction:column; justify-content:space-between;">
+                                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 1rem;">
+                                    <div>
+                                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; letter-spacing:0.10em;">COMMITTED</div>
+                                        <div id="commitAthleteOut" style="color:white; font-weight: 900; font-size: 2rem; margin-top: 0.25rem;">Your Name</div>
+                                        <div id="commitSportOut" style="color: rgba(255,255,255,0.75); font-weight: 600; margin-top: 0.35rem;">Sport • Position</div>
+                                    </div>
+                                    <div id="commitLogoWrap" style="width: 88px; height: 88px; border-radius: 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                                        <span style="color: rgba(255,255,255,0.55); font-weight:700;">LOGO</span>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:flex-end; gap: 1rem;">
+                                    <div>
+                                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; letter-spacing:0.10em;">TO</div>
+                                        <div id="commitSchoolOut" style="color:white; font-weight: 900; font-size: 1.65rem; margin-top:0.25rem;">School Name</div>
+                                        <div id="commitYearOut" style="color: rgba(255,255,255,0.75); font-weight: 700; margin-top: 0.35rem;">Class of 20XX</div>
+                                    </div>
+
+                                    <div id="commitPhotoWrap" style="width: 110px; height: 140px; border-radius: 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                                        <span style="color: rgba(255,255,255,0.55); font-weight:700;">PHOTO</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Animation overlay -->
+                            <div id="commitFlash" style="position:absolute; inset:0; background: var(--gradient); opacity:0; pointer-events:none;"></div>
+                        </div>
+
+                        <div style="margin-top: 1rem; color: rgba(255,255,255,0.6); line-height: 1.7; font-size: 0.95rem;"><strong style="color:white;">Tip:</strong> Use a high‑resolution logo (PNG) for the cleanest look. We can add a one‑click image download button next.</div>
+</div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+<style>
+  @keyframes commitPop {
+    0% { transform: scale(0.96); filter: blur(1px); }
+    30% { transform: scale(1.02); filter: blur(0px); }
+    100% { transform: scale(1.0); }
+  }
+  @keyframes commitFlash {
+    0% { opacity: 0; }
+    15% { opacity: 0.22; }
+    35% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .commit-animate #commitPreview { animation: commitPop 3s ease-in-out 1; }
+  .commit-animate #commitFlash { animation: commitFlash 3s ease-in-out 1; }
+
+        /* Home FAQ container */
+        .faq-container{ max-width: 900px; margin: 0 auto; }
+
+</style>
+
+<script>
+  function readFileAsURL(file, cb) {
+    const reader = new FileReader();
+    reader.onload = () => cb(reader.result);
+    reader.readAsDataURL(file);
+  }
+
+  function generateCommitPreview() {
+    const athlete = document.getElementById('commitAthlete').value.trim() || 'Your Name';
+    const school = document.getElementById('commitSchool').value.trim() || 'School Name';
+    const year = document.getElementById('commitYear').value.trim() || 'Class of 20XX';
+    const sport = document.getElementById('commitSport').value.trim() || 'Sport • Position';
+
+    document.getElementById('commitAthleteOut').textContent = athlete.toUpperCase();
+    document.getElementById('commitSchoolOut').textContent = school.toUpperCase();
+    document.getElementById('commitYearOut').textContent = year.toUpperCase();
+    document.getElementById('commitSportOut').textContent = sport;
+
+    const logoInput = document.getElementById('commitLogo');
+    const photoInput = document.getElementById('commitPhoto');
+    const clipInput = document.getElementById('commitClipRemoved');
+
+    if (logoInput.files && logoInput.files[0]) {
+      readFileAsURL(logoInput.files[0], (url) => {
+        const wrap = document.getElementById('commitLogoWrap');
+        wrap.innerHTML = '<img src="'+url+'" style="width:100%; height:100%; object-fit:contain; background: rgba(255,255,255,0.02);"/>';
+      });
+    }
+
+    if (photoInput.files && photoInput.files[0]) {
+      readFileAsURL(photoInput.files[0], (url) => {
+        const wrap = document.getElementById('commitPhotoWrap');
+        wrap.innerHTML = '<img src="'+url+'" style="width:100%; height:100%; object-fit:cover;"/>';
+      });
+    }
+
+    if (clipInput.files && clipInput.files[0]) {
+      readFileAsURL(clipInput.files[0], (url) => {
+        const video = document.getElementById('commitBgVideo');
+        const wrap = document.getElementById('commitBgVideoWrap');
+        video.src = url;
+        wrap.style.display = 'block';
+        video.play().catch(()=>{});
+      });
+    }
+  }
+
+  </script>
+
+<!-- PRICING PAGE -->
+    <div id="pricing" class="page">
+        <section class="section" style="padding-top: 140px; background: #0A0E27;">
+            <div class="section-container">
+                <h2 class="section-title">Calculate Your Potential</h2>
+                <p class="section-subtitle">See what you could earn with RecruitEdge</p>
+                <div class="calculator-box">
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Number of clients</span>
+                            <span class="slider-value" id="clientValue">10</span>
+                        </div>
+                        <input type="range" min="1" max="50" value="10" class="slider" id="clientSlider">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Average price per client</span>
+                            <span class="slider-value">$<span id="priceValue">50</span></span>
+                        </div>
+                        <input type="range" min="20" max="100" value="50" step="10" class="slider" id="priceSlider">
+                    </div>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">Monthly</div>
+                            <div class="result-value highlight">$<span id="monthlyRevenue">500</span></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Annual</div>
+                            <div class="result-value">$<span id="annualRevenue">6,000</span></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Per Client</div>
+                            <div class="result-value">$<span id="clientValue2">600</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: #151925;">
+            <div class="section-container">
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">Choose the plan that fits your goals</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 3rem auto;">
+                    <div class="feature-card">
+                        <h3>Starter</h3>
+                        <div style="font-size: 3rem; font-weight: 800; color: white; margin: 1rem 0;">$20<span style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
+                        <p style="margin-bottom: 1.5rem;">25 coaches contacted monthly</p>
+                        <button class="primary-button" onclick="showPage(&#39;signup&#39;)">Choose Plan</button>
+                    </div>
+                    <div class="feature-card" style="border-color: var(--secondary);">
+                        <div style="background: var(--gradient); color: white; padding: 0.375rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; display: inline-block; margin-bottom: 1rem;">MOST POPULAR</div>
+                        <h3>Pro</h3>
+                        <div style="font-size: 3rem; font-weight: 800; color: white; margin: 1rem 0;">$50<span style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
+                        <p style="margin-bottom: 1.5rem;">75 coaches contacted monthly</p>
+                        <button class="primary-button" onclick="showPage(&#39;signup&#39;)">Choose Plan</button>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Elite</h3>
+                        <div style="font-size: 3rem; font-weight: 800; color: white; margin: 1rem 0;">$100<span style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
+                        <p style="margin-bottom: 1.5rem;">150 coaches contacted monthly</p>
+                        <button class="primary-button" onclick="showPage(&#39;signup&#39;)">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PROGRESS PAGE -->
+    <div id="progress" class="page active">
+        <section class="section" style="padding-top: 140px;">
+            <div class="section-container">
+                <h2 class="section-title">Your Recruiting Dashboard</h2>
+                <p class="section-subtitle">Track your recruiting activity in real time</p>
+
+                <!-- OVERALL / LEVEL SYSTEM -->
+                <div style="margin-top: 2rem; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 2rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 1rem; flex-wrap: wrap;">
+                        <div>
+                            <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; letter-spacing: 0.08em;">OVERALL</div>
+                            <div style="font-size: 4rem; font-weight: 900; line-height: 1; background: var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+                                <span id="overallValue">72</span>
+                            </div>
+                            <div style="margin-top: 0.5rem; color: white; font-weight: 800; font-size: 1.25rem;">
+                                <span id="tierName">Ballin’ Prospect</span>
+                            </div>
+                            <div style="margin-top: 0.25rem; color: rgba(255,255,255,0.6);">
+                                Level <span id="levelValue">12</span> • <span id="xpValue">240</span>/<span id="xpNext">300</span> XP
+                            </div>
+                        </div>
+
+                        <div style="min-width: 280px; flex: 1;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
+                                <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Hype Meter</span>
+                                <span style="color: rgba(255,255,255,0.9); font-weight: 700;" id="hypeLabel">Rising</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); height: 12px; border-radius: 999px; overflow:hidden;">
+                                <div id="hypeBar" style="height: 100%; width: 40%; background: var(--gradient);"></div>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 0.75rem; margin-top: 1rem;">
+                                <button class="primary-button" style="padding:0.85rem 1rem;" onclick="addEventXP(&#39;ai&#39;)">+ AI Review</button>
+                                <button class="primary-button" style="padding:0.85rem 1rem; background: rgba(255,255,255,0.12);" onclick="addEventXP(&#39;coachReply&#39;)">+ Coach Reply</button>
+                                <button class="primary-button" style="padding:0.85rem 1rem; background: rgba(255,255,255,0.12);" onclick="addEventXP(&#39;offer&#39;)">+ Offer</button>
+                                <button class="primary-button" style="padding:0.85rem 1rem; background: rgba(255,255,255,0.12);" onclick="resetHype()">Reset (Demo)</button>
+                            </div>
+
+                            <div style="margin-top: 0.75rem; color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.6;">
+                                You level up by: getting offers, coach responses, completing profile, and using the AI tools.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- Stock-like Stats Grid -->
+                <div class="progress-stats-grid">
+                    <!-- Emails Sent -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div>
+                                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.5rem;">EMAILS SENT</div>
+                                <div style="font-size: 2.5rem; font-weight: 800; color: white;">127</div>
+                            </div>
+                            <div style="background: rgba(59, 130, 246, 0.2); padding: 0.5rem 0.75rem; border-radius: 8px;">
+                                <span style="color: #60A5FA; font-size: 1.5rem;">📧</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: #10B981; font-weight: 600;">↗ +12</span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">this week</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.8rem;">AVG PER WEEK</div>
+                            <div style="color: white; font-weight: 600; font-size: 1.1rem;">18.1</div>
+                        </div>
+                    </div>
+
+                    <!-- Coach Responses -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 2rem; box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div>
+                                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.5rem;">COACH RESPONSES</div>
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #10B981;">43</div>
+                            </div>
+                            <div style="background: rgba(16, 185, 129, 0.2); padding: 0.5rem 0.75rem; border-radius: 8px;">
+                                <span style="color: #10B981; font-size: 1.5rem;">💬</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: #10B981; font-weight: 600;">↗ +8</span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">this week</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.8rem;">RESPONSE RATE</div>
+                            <div style="color: #10B981; font-weight: 600; font-size: 1.1rem;">33.9%</div>
+                        </div>
+                    </div>
+
+                    <!-- Calls Booked -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 16px; padding: 2rem; box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div>
+                                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.5rem;">CALLS BOOKED</div>
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #FBBF24;">8</div>
+                            </div>
+                            <div style="background: rgba(251, 191, 36, 0.2); padding: 0.5rem 0.75rem; border-radius: 8px;">
+                                <span style="color: #FBBF24; font-size: 1.5rem;">📞</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: #10B981; font-weight: 600;">↗ +3</span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">this week</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.8rem;">UPCOMING</div>
+                            <div style="color: white; font-weight: 600; font-size: 1.1rem;">2 this week</div>
+                        </div>
+                    </div>
+
+                    <!-- Offers Received -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 16px; padding: 2rem; box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div>
+                                <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.5rem;">OFFERS RECEIVED</div>
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #8B5CF6;">3</div>
+                            </div>
+                            <div style="background: rgba(139, 92, 246, 0.2); padding: 0.5rem 0.75rem; border-radius: 8px;">
+                                <span style="color: #8B5CF6; font-size: 1.5rem;">🎉</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: #10B981; font-weight: 600;">↗ +1</span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">this week</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: rgba(255, 255, 255, 0.5); font-size: 0.8rem;">LATEST</div>
+                            <div style="color: white; font-weight: 600; font-size: 1.1rem;">Syracuse</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div style="margin-top: 3rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem;">
+                    <h3 style="color: white; font-size: 1.3rem; margin-bottom: 1.5rem;">Weekly Performance</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Email Open Rate</span>
+                                <span style="color: white; font-weight: 600;">68%</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: var(--gradient); height: 100%; width: 68%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Highlight Views</span>
+                                <span style="color: white; font-weight: 600;">82%</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #10B981; height: 100%; width: 82%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Profile Completeness</span>
+                                <span style="color: white; font-weight: 600;">94%</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #FBBF24; height: 100%; width: 94%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Feed -->
+                <h3 style="color: white; font-size: 1.5rem; margin: 4rem 0 2rem;">Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item" style="border-left: 4px solid #10B981;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(16, 185, 129, 0.2); padding: 0.75rem; border-radius: 10px;">
+                                <span style="font-size: 1.5rem;">✅</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">Email to Duke University</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Coach opened and viewed highlight tape</div>
+                                <div style="color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; margin-top: 0.25rem;">2 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-item" style="border-left: 4px solid #FBBF24;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(251, 191, 36, 0.2); padding: 0.75rem; border-radius: 10px;">
+                                <span style="font-size: 1.5rem;">📞</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">Call Booked with Syracuse</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Friday at 2:00 PM EST with Coach Miller</div>
+                                <div style="color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; margin-top: 0.25rem;">5 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-item" style="border-left: 4px solid #8B5CF6;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(139, 92, 246, 0.2); padding: 0.75rem; border-radius: 10px;">
+                                <span style="font-size: 1.5rem;">🎉</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">Offer Received from Syracuse!</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Partial scholarship offer pending call discussion</div>
+                                <div style="color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; margin-top: 0.25rem;">Yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-item" style="border-left: 4px solid #60A5FA;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: rgba(96, 165, 250, 0.2); padding: 0.75rem; border-radius: 10px;">
+                                <span style="font-size: 1.5rem;">📧</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 600;">Follow-up sent to UNC</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Third follow-up email with updated stats</div>
+                                <div style="color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; margin-top: 0.25rem;">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+<script>
+  // --- Core SPA navigation (restored) ---
+  function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.classList.remove('active'));
+
+    const target = document.getElementById(pageId);
+    if (target) target.classList.add('active');
+
+    // Close notifications dropdown if open
+    const dd = document.getElementById('notificationDropdown');
+    if (dd) dd.style.display = 'none';
+
+    // Update active nav styles + indicator
+    setActiveNav(pageId);
+
+    // Scroll to top for cleaner "page" feel
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setActiveNav(pageId) {
+    const links = document.querySelectorAll('.nav-links a[data-page]');
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('data-page') === pageId));
+
+    const active = document.querySelector('.nav-links a.active');
+    const indicator = document.getElementById('navIndicator');
+    const wrap = document.querySelector('.nav-links-wrap');
+    if (!active || !indicator || !wrap) return;
+
+    const rect = active.getBoundingClientRect();
+    const wrapRect = wrap.getBoundingClientRect();
+    // account for horizontal scroll inside the pill bar
+    const left = rect.left - wrapRect.left + wrap.scrollLeft;
+
+    indicator.style.width = rect.width + 'px';
+    indicator.style.left = left + 'px';
+  }
+
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.nav-links a.active');
+    if (active) setActiveNav(active.getAttribute('data-page'));
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Ensure Home is selected on load
+    setActiveNav('home');
+
+    // If user clicks the logo, go home
+    const logo = document.querySelector('.logo');
+    if (logo) logo.addEventListener('click', () => showPage('home'));
+  });
+
+  // --- Notifications dropdown (demo UI) ---
+  function toggleNotifications() {
+    const dd = document.getElementById('notificationDropdown');
+    if (!dd) return;
+    dd.style.display = (dd.style.display === 'block') ? 'none' : 'block';
+  }
+
+  // Click outside to close notifications
+  document.addEventListener('click', (e) => {
+    const dd = document.getElementById('notificationDropdown');
+    const bell = document.querySelector('.notification-bell');
+    if (!dd || !bell) return;
+    if (!dd.contains(e.target) && !bell.contains(e.target)) {
+      dd.style.display = 'none';
+    }
+  });
+
+  // --- Booking button (works locally + on GitHub Pages) ---
+  function bookStrategyCall() {
+    const url = "https://calendly.com/isaacmesnekoff/new-meeting?hide_gdpr_banner=1&primary_color=0066ff";
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+
+  // --- Profile Form Functions ---
+  function showTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-button');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    const targetTab = document.getElementById(tabName);
+    if (targetTab) targetTab.classList.add('active');
+    
+    const targetButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+    if (targetButton) targetButton.classList.add('active');
+  }
+
+  function addSchoolTeam() {
+    const container = document.getElementById('schoolTeamsContainer');
+    const newTeam = document.createElement('div');
+    newTeam.className = 'team-section';
+    newTeam.style.cssText = 'background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;';
+    newTeam.innerHTML = `
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">School Name</label>
+          <input type="text" class="form-input" placeholder="Your High School">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" placeholder="City, State">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Coach Name</label>
+          <input type="text" class="form-input" placeholder="Coach Smith">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Coach Email</label>
+          <input type="email" class="form-input" placeholder="coach@school.edu">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stats & Achievements</label>
+        <textarea class="form-textarea" placeholder="Career stats, team achievements, individual awards..."></textarea>
+      </div>
+    `;
+    container.appendChild(newTeam);
+  }
+
+  function addClubTeam() {
+    const container = document.getElementById('clubTeamsContainer');
+    const newTeam = document.createElement('div');
+    newTeam.className = 'team-section';
+    newTeam.style.cssText = 'background: rgba(0, 102, 255, 0.05); border: 1px solid rgba(0, 102, 255, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;';
+    newTeam.innerHTML = `
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">Club Name</label>
+          <input type="text" class="form-input" placeholder="e.g., FCA Lacrosse">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" placeholder="City, State">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Coach Name</label>
+          <input type="text" class="form-input" placeholder="Coach Johnson">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Years Active</label>
+          <input type="text" class="form-input" placeholder="2022 - Present">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stats & Achievements</label>
+        <textarea class="form-textarea" placeholder="Tournament wins, stats, national rankings..."></textarea>
+      </div>
+    `;
+    container.appendChild(newTeam);
+  }
+
+  function loadDemoData() {
+    document.getElementById('fullName').value = 'Alex Johnson';
+    document.getElementById('email').value = 'alex.johnson@email.com';
+    document.getElementById('phone').value = '(555) 123-4567';
+    document.getElementById('gradYear').value = '2026';
+    document.getElementById('schoolName').value = 'Lincoln High School';
+    document.getElementById('city').value = 'Charlotte';
+    document.getElementById('state').value = 'North Carolina';
+    document.getElementById('gpa').value = '3.8';
+    document.getElementById('testScore').value = '1280 SAT';
+    if (document.getElementById('sport')) document.getElementById('sport').value = 'Lacrosse';
+    alert('Demo data loaded! Navigate through the tabs to see the example profile.');
+  }
+
+  function toggleAllLocations(checkbox) {
+    const stateSelection = document.getElementById('stateSelection');
+    if (checkbox.checked) {
+      stateSelection.style.opacity = '0.5';
+      stateSelection.style.pointerEvents = 'none';
+    } else {
+      stateSelection.style.opacity = '1';
+      stateSelection.style.pointerEvents = 'auto';
+    }
+  }
+
+  // --- FAQ Accordion ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        // Toggle current item
+        const isActive = item.classList.contains('active');
+        
+        // Close all items
+        faqItems.forEach(i => i.classList.remove('active'));
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+
+
+</body></html>
