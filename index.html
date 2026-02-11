@@ -2041,22 +2041,37 @@
             updatePrices();
         }
 
-        function updatePrices() {
-            const priceElements = document.querySelectorAll('.price-amount');
-            const periodElements = document.querySelectorAll('.price-period');
-            
-            if (currentMode === 'monthly') {
-                priceElements[0].textContent = '$29';
-                priceElements[1].textContent = '$79';
-                priceElements[2].textContent = '$149';
-                periodElements.forEach(el => el.textContent = '/mo');
-            } else {
-                priceElements[0].textContent = '$278';
-                priceElements[1].textContent = '$758';
-                priceElements[2].textContent = '$1,430';
-                periodElements.forEach(el => el.textContent = '/year');
+       function updatePrices() {
+    const priceElements = document.querySelectorAll('.price-amount');
+    const periodElements = document.querySelectorAll('.price-period');
+    
+    if (currentMode === 'monthly') {
+        priceElements[0].textContent = '$29';
+        priceElements[1].textContent = '$79';
+        priceElements[2].textContent = '$149';
+        periodElements.forEach(el => {
+            el.textContent = '/mo';
+            const savingsEl = el.parentElement.nextElementSibling?.querySelector('.savings-text');
+            if (savingsEl) savingsEl.remove();
+        });
+    } else {
+        priceElements[0].textContent = '$278';
+        priceElements[1].textContent = '$758';
+        priceElements[2].textContent = '$1,430';
+        const savings = [70, 190, 358];
+        periodElements.forEach((el, index) => {
+            el.textContent = '/year';
+            const tagline = el.parentElement.nextElementSibling;
+            if (tagline && !tagline.querySelector('.savings-text')) {
+                const savingsDiv = document.createElement('div');
+                savingsDiv.className = 'savings-text';
+                savingsDiv.style.cssText = 'color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem;';
+                savingsDiv.textContent = `💰 Save $${savings[index]}/year`;
+                tagline.insertAdjacentElement('afterend', savingsDiv);
             }
-        }
+        });
+    }
+}
     </script>
     function updatePrices() {
             const priceElements = document.querySelectorAll('.price-amount');
