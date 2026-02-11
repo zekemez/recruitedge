@@ -1559,79 +1559,86 @@
     </div>
 
     <!-- HIGHLIGHTS PAGE -->
-    <div id="highlights" class="page">
+   <div id="highlights" class="page">
         <section class="section" style="padding-top: 140px;">
-            <div class="section-container" style="max-width: 900px;">
-                <h2 class="section-title">Professional Highlight Tape Creator</h2>
-                <p class="section-subtitle">Upload your raw clips and we'll transform them into coach ready highlight tapes that get you noticed</p>
-                
-                <!-- What We Do Section -->
-                <div style="margin-bottom: 3rem;">
-                    <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">How We Make You Look Your Best</h3>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">🎬</div>
-                            <h3>Optimal Clip Selection</h3>
-                            <p>We analyze all your footage and select only the plays that showcase your skills at the highest level. No filler, no wasted time. Just your best moments that demonstrate why coaches should recruit you.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">⏱️</div>
-                            <h3>Perfect Length &amp; Pacing</h3>
-                            <p>Coaches want 2 to 3 minutes max. We trim clips to show the action immediately, cut out dead time, and pace the tape to maintain attention from start to finish. Every second counts.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">📊</div>
-                            <h3>Clean Graphics &amp; Stats</h3>
-                            <p>We add your name, position, grad year, and key stats in a clean professional format. Coaches see your information without distraction. No flashy effects, no music that drowns out game sound. Just what coaches want to see.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🎯</div>
-                            <h3>Position Specific Formatting</h3>
-                            <p>Attackman? We focus on goals, assists, and dodges. Defenseman? Groundballs, clears, and caused turnovers. Goalie? Saves organized by difficulty. We know what coaches look for in every position.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🔍</div>
-                            <h3>HD Quality Enhancement</h3>
-                            <p>We optimize video quality, fix lighting issues, stabilize shaky footage, and ensure your tape looks crisp on any device. Your film looks professional even if it was shot on a phone.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">✅</div>
-                            <h3>Coach Approved Format</h3>
-                            <p>We follow recruiting coordinator preferences from D1 to D3. Landscape orientation, game footage over practice, and organized by play type. We know exactly what coaches want because we've asked them.</p>
-                        </div>
-                    </div>
+            <div class="section-container" style="max-width: 1200px;">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 class="section-title">Professional Highlight Tape Creator</h2>
+                    <p class="section-subtitle">Upload your raw clips and we'll transform them into coach-ready highlight tapes.</p>
                 </div>
-
-                <!-- Upload Section -->
-                <div style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1.5rem;">Upload Your Game Footage</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">Send us your raw game clips and we'll turn them into a professional highlight tape in 3 to 5 business days</p>
-                    <div class="upload-zone" id="uploadZone">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">📁</div>
-                        <div style="font-size: 1.2rem; font-weight: 600; color: white; margin-bottom: 0.5rem;">Drag and drop your video files here</div>
-                        <div style="color: rgba(255, 255, 255, 0.6);">or click to browse (MP4, MOV, AVI accepted)</div>
-                        <input type="file" id="fileInput" multiple="" accept="video/*" style="display: none;">
-                    </div>
-                    <div id="fileList"></div>
+                
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2.5rem; align-items: start;">
                     
-                    <div style="margin-top: 2rem;">
-                        <h4 style="color: white; font-size: 1.1rem; margin-bottom: 1rem;">Editing Preferences</h4>
+                    <div style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                            <span style="background: var(--gradient); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.9rem;">1</span>
+                            Upload Your Game Footage
+                        </h3>
+                        
+                        <div class="upload-zone" id="uploadZone" style="padding: 3rem 1rem; border: 2px dashed rgba(0, 217, 255, 0.3); transition: 0.3s;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: white; margin-bottom: 0.5rem;">Drag & drop your clips</div>
+                            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">MP4, MOV, or AVI accepted</div>
+                            <input type="file" id="fileInput" multiple="" accept="video/*" style="display: none;">
+                        </div>
+                        <div id="fileList" style="margin-top: 1rem;"></div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 120px;">
+                        <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                            <span style="background: var(--gradient); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.9rem;">2</span>
+                            Editing Preferences
+                        </h3>
+
                         <div class="form-group">
                             <label class="form-label">Highlight Style</label>
-                            <select class="form-select">
+                            <select class="form-select" style="background: rgba(0,0,0,0.2);">
                                 <option>Standard (Best plays, 2-3 min)</option>
                                 <option>Extended (More context, 4-5 min)</option>
                                 <option>Position Specific (Skills showcase, 3 min)</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Special Requests (Optional)</label>
-                            <textarea class="form-textarea" placeholder="Any specific plays you want highlighted? Moments to include or exclude? Let us know..."></textarea>
+                        
+                        <div class="form-group" style="margin-top: 1.5rem;">
+                            <label class="form-label">Special Requests</label>
+                            <textarea class="form-textarea" style="background: rgba(0,0,0,0.2); min-height: 100px;" placeholder="Specific plays to include?"></textarea>
+                        </div>
+
+                        <button class="submit-button" style="margin-top: 1rem; box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);">
+                            Send to Editor ✓
+                        </button>
+                        
+                        <p style="text-align: center; color: rgba(255, 255, 255, 0.5); margin-top: 1.2rem; font-size: 0.85rem;">
+                            Turnaround: 3-5 Business Days
+                        </p>
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 6rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4rem;">
+                    <h3 style="color: white; font-size: 2rem; font-weight: 800; margin-bottom: 3rem; text-align: center;">How We Make You Look Your Best</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎬</div>
+                            <h3>Optimal Clip Selection</h3>
+                            <p>We analyze all your footage and select only the plays that showcase your skills at the highest level.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⏱️</div>
+                            <h3>Perfect Length</h3>
+                            <p>Coaches want 2 to 3 minutes max. We trim dead time and keep the pace fast.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Clean Graphics</h3>
+                            <p>We add your name, position, and stats in a professional format without flashy distractions.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Position Specific</h3>
+                            <p>We know what coaches look for in every position—from groundballs to goalie saves.</p>
                         </div>
                     </div>
-                    
-                    <button class="submit-button">Submit for Professional Editing</button>
-                    <p style="text-align: center; color: rgba(255, 255, 255, 0.6); margin-top: 1rem; font-size: 0.95rem;">Turnaround time: 3 to 5 business days • Unlimited revisions until you're satisfied</p>
                 </div>
             </div>
         </section>
