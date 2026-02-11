@@ -1928,6 +1928,7 @@
                         <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 1rem;">Starter</div>
                         <div style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem;"><span class="price-amount">$29</span><span class="price-period" style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
                         <div style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-size: 0.95rem;">Start Getting Noticed</div>
+                        <div class="savings-container" style="color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem; display: none;"></div>
                         <ul style="list-style: none; margin-bottom: 2rem;">
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Unlimited AI coach outreach</li>
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Automated follow-ups (weekly)</li>
@@ -1944,6 +1945,7 @@
                         <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 1rem;">Pro</div>
                         <div style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem;"><span class="price-amount">$79</span><span class="price-period" style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
                         <div style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-size: 0.95rem;">Get Serious Results</div>
+                        <div class="savings-container" style="color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem; display: none;"></div>
                         <ul style="list-style: none; margin-bottom: 2rem;">
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Everything in Starter</li>
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Advanced AI personalization</li>
@@ -1959,6 +1961,7 @@
                         <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 1rem;">Elite</div>
                         <div style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem;"><span class="price-amount">$149</span><span class="price-period" style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.6);">/mo</span></div>
                         <div style="color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-size: 0.95rem;">Get Recruited Like a Pro</div>
+                        <div class="savings-container" style="color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem; display: none;"></div>
                         <ul style="list-style: none; margin-bottom: 2rem;">
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Everything in Pro</li>
                             <li style="padding: 0.75rem 0; color: rgba(255, 255, 255, 0.9); display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: #10B981; font-weight: 700; font-size: 1.2rem;">✓</span> Unlimited highlight edits</li>
@@ -2041,72 +2044,32 @@
             updatePrices();
         }
 
-       function updatePrices() {
-    const priceElements = document.querySelectorAll('.price-amount');
-    const periodElements = document.querySelectorAll('.price-period');
-    
-    if (currentMode === 'monthly') {
-        priceElements[0].textContent = '$29';
-        priceElements[1].textContent = '$79';
-        priceElements[2].textContent = '$149';
-        periodElements.forEach(el => {
-            el.textContent = '/mo';
-            const savingsEl = el.parentElement.nextElementSibling?.querySelector('.savings-text');
-            if (savingsEl) savingsEl.remove();
-        });
-    } else {
-        priceElements[0].textContent = '$278';
-        priceElements[1].textContent = '$758';
-        priceElements[2].textContent = '$1,430';
-        const savings = [70, 190, 358];
-        periodElements.forEach((el, index) => {
-            el.textContent = '/year';
-            const tagline = el.parentElement.nextElementSibling;
-            if (tagline && !tagline.querySelector('.savings-text')) {
-                const savingsDiv = document.createElement('div');
-                savingsDiv.className = 'savings-text';
-                savingsDiv.style.cssText = 'color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem;';
-                savingsDiv.textContent = `💰 Save $${savings[index]}/year`;
-                tagline.insertAdjacentElement('afterend', savingsDiv);
-            }
-        });
-    }
-}
-    </script>
-    function updatePrices() {
+        function updatePrices() {
             const priceElements = document.querySelectorAll('.price-amount');
             const periodElements = document.querySelectorAll('.price-period');
+            const savingsContainers = document.querySelectorAll('.savings-container');
             
             if (currentMode === 'monthly') {
                 priceElements[0].textContent = '$29';
                 priceElements[1].textContent = '$79';
                 priceElements[2].textContent = '$149';
-                periodElements.forEach(el => {
-                    el.textContent = '/mo';
-                    // Remove any existing savings text
-                    const savingsEl = el.parentElement.nextElementSibling?.querySelector('.savings-text');
-                    if (savingsEl) savingsEl.remove();
-                });
+                periodElements.forEach(el => el.textContent = '/mo');
+                savingsContainers.forEach(container => container.style.display = 'none');
             } else {
                 priceElements[0].textContent = '$278';
                 priceElements[1].textContent = '$758';
                 priceElements[2].textContent = '$1,430';
-                periodElements.forEach((el, index) => {
-                    el.textContent = '/year';
-                    // Add savings text
-                    const savings = [70, 190, 358];
-                    const tagline = el.parentElement.nextElementSibling;
-                    if (tagline && !tagline.querySelector('.savings-text')) {
-                        const savingsDiv = document.createElement('div');
-                        savingsDiv.className = 'savings-text';
-                        savingsDiv.style.cssText = 'color: #10B981; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem;';
-                        savingsDiv.textContent = `💰 Save $${savings[index]}/year`;
-                        tagline.insertAdjacentElement('afterend', savingsDiv);
-                    }
+                periodElements.forEach(el => el.textContent = '/year');
+                
+                const savings = ['$70', '$190', '$358'];
+                savingsContainers.forEach((container, index) => {
+                    container.style.display = 'block';
+                    container.textContent = '💰 Save ' + savings[index] + '/year';
                 });
             }
         }
     </script>
+    
     <!-- PROGRESS PAGE -->
     <div id="progress" class="page active">
         <section class="section" style="padding-top: 140px;">
