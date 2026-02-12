@@ -1740,6 +1740,81 @@
         </section>
     </div>
 
+    <!-- OUTREACH PAGE -->
+<div id="outreach" class="page">
+    <section class="section" style="padding-top: 140px;">
+        <div class="section-container" style="max-width: 900px;">
+            <h2 class="section-title">📧 Coach Outreach</h2>
+            <p class="section-subtitle">AI generates personalized emails to college coaches</p>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;">Your Info</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input class="form-input" id="outreachAthleteName" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Email</label>
+                        <input class="form-input" id="outreachAthleteEmail" type="email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Sport</label>
+                        <input class="form-input" id="outreachSport" placeholder="e.g., Lacrosse">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Position</label>
+                        <input class="form-input" id="outreachPosition" placeholder="e.g., Midfield">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">High School</label>
+                        <input class="form-input" id="outreachSchool" placeholder="Your High School">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Grad Year</label>
+                        <input class="form-input" id="outreachGradYear" placeholder="e.g., 2027">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">GPA</label>
+                        <input class="form-input" id="outreachGPA" placeholder="e.g., 3.7">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Highlights Link</label>
+                        <input class="form-input" id="outreachHighlights" placeholder="YouTube/Hudl URL">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label class="form-label">Key Stats</label>
+                    <textarea class="form-textarea" id="outreachStats" placeholder="Goals, assists, awards, etc."></textarea>
+                </div>
+            </div>
+
+            <div style="background: rgba(0, 102, 255, 0.05); border: 1px solid rgba(0, 102, 255, 0.2); border-radius: 20px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="color: #0066FF; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;">🎓 Coach Info</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Coach Name</label>
+                        <input class="form-input" id="coachName" placeholder="e.g., Coach Smith">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">College/University</label>
+                        <input class="form-input" id="collegeName" placeholder="e.g., Duke University">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Coach Email</label>
+                        <input class="form-input" id="coachEmail" type="email" placeholder="coach@university.edu">
+                    </div>
+                </div>
+                <button onclick="generateCoachEmail()" class="primary-button" style="margin-top: 1.5rem; width: 100%;">
+                    ✨ Generate Personalized Email
+                </button>
+            </div>
+
+            <div id="emailPreview" style="display: none;"></div>
+        </div>
+    </section>
+</div>
+
 
     <!-- COMMIT EDIT PAGE -->
     <div id="commit" class="page">
